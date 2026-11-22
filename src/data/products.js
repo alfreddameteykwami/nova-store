@@ -1,0 +1,115 @@
+// Local product data. Photos live in public/images/products/<id>.jpg (see public/images/README.md)
+export const CATEGORIES = [
+  "Tech Accessories",
+  "Audio Devices",
+  "Desk Essentials",
+  "Lifestyle Accessories",
+];
+
+const base = [
+  {
+    id: "frame-headphones",
+    name: "Frame Headphones",
+    category: "Audio Devices",
+    price: 219,
+    short: "Over-ear, adaptive noise cancelling, 40 hours of playback.",
+    feat: [
+      "Adaptive noise cancelling",
+      "40-hour battery",
+      "Multipoint Bluetooth 5.3",
+    ],
+  },
+  {
+    id: "pebble-speaker",
+    name: "Pebble Speaker",
+    category: "Audio Devices",
+    price: 149,
+    short: "A palm-sized speaker with room-filling sound.",
+    feat: ["14-hour battery", "Water resistant", "Stereo pairing"],
+  },
+  {
+    id: "drift-earbuds",
+    name: "Drift Earbuds",
+    category: "Audio Devices",
+    price: 129,
+    short: "Small, light earbuds with a pocketable charging case.",
+    feat: ["8 hours per charge", "Transparency mode", "Wireless charging case"],
+  },
+  {
+    id: "orbit-watch",
+    name: "Orbit Smartwatch",
+    category: "Tech Accessories",
+    price: 249,
+    short: "A quiet, always-on display with a week of battery.",
+    feat: ["7-day battery", "Sleep and heart tracking", "Sapphire glass"],
+  },
+  {
+    id: "cairn-charger",
+    name: "Cairn Charger",
+    category: "Tech Accessories",
+    price: 89,
+    short: "Charges your phone, earbuds and watch from one stack.",
+    feat: ["3-in-1 wireless", "15 W fast charging", "Aluminum base"],
+  },
+  {
+    id: "slab-power-bank",
+    name: "Slab Power Bank",
+    category: "Tech Accessories",
+    price: 69,
+    short: "10,000 mAh in a body slim enough for any pocket.",
+    feat: ["30 W USB-C", "10,000 mAh", "Pass-through charging"],
+  },
+  {
+    id: "keys-65",
+    name: "Keys 65 Keyboard",
+    category: "Desk Essentials",
+    price: 159,
+    short: "A compact mechanical keyboard with a soft, low sound.",
+    feat: ["Hot-swappable switches", "Wireless or USB-C", "Gasket-mounted"],
+  },
+  {
+    id: "glide-mouse",
+    name: "Glide Mouse",
+    category: "Desk Essentials",
+    price: 79,
+    short: "A low-profile wireless mouse with a silent scroll wheel.",
+    feat: ["70-day battery", "Silent clicks", "Works on glass"],
+  },
+  {
+    id: "arc-lamp",
+    name: "Arc Lamp",
+    category: "Desk Essentials",
+    price: 119,
+    short: "Warm, dimmable light on a slim aluminum arm.",
+    feat: ["Touch dimming", "2700–5000 K", "Weighted base"],
+  },
+  {
+    id: "drift-flask",
+    name: "Drift Flask",
+    category: "Lifestyle Accessories",
+    price: 45,
+    short: "600 ml stainless steel. Cold for 24 hours.",
+    feat: ["24 h cold, 12 h hot", "Leak-proof cap", "Dishwasher safe"],
+  },
+  {
+    id: "ember-mug",
+    name: "Ember Mug",
+    category: "Lifestyle Accessories",
+    price: 79,
+    short: "Holds your drink at the temperature you choose.",
+    feat: ["Holds 55–65 °C", "3-hour battery", "Ceramic coating"],
+  },
+  {
+    id: "solis-sunglasses",
+    name: "Solis Sunglasses",
+    category: "Lifestyle Accessories",
+    price: 129,
+    short: "Lightweight frames with polarized, scratch-resistant lenses.",
+    feat: ["Polarized lenses", "UV400 protection", "22 g frame"],
+  },
+];
+
+export const products = base.map((p) => ({
+  ...p,
+  image: `/images/products/${p.id}.jpg`,
+}));

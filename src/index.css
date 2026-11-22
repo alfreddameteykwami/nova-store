@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+/* Design tokens. Colours are CSS variables so the light/dark theme can swap them. */
+
+@theme inline {
+  --color-fog: var(--fog);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-cobalt: var(--cobalt);
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --fog: #dcdfe0;
+  --paper: #eceeee;
+  --ink: #15181b;
+  --mute: #5d676d;
+  --cobalt: #3347ff;
+  --glass: rgba(236, 238, 238, 0.6);
+  --glass-line: rgba(21, 24, 27, 0.1);
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --fog: #101315;
+  --paper: #181c1f;
+  --ink: #e8ebec;
+  --mute: #9aa5ab;
+  --cobalt: #4a5cff;
+  --glass: rgba(24, 28, 31, 0.62);
+  --glass-line: rgba(232, 235, 236, 0.14);
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--fog);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color 0.4s ease,
+      color 0.4s ease;
+  }
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+  button,
+  [role="button"],
+  a {
+    cursor: pointer;
+  }
+  ::selection {
+    background: var(--cobalt);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--cobalt);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-line);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 44px;
+    background: var(--ink);
+    animation: drop 2.2s ease-in-out infinite;
+  }
+}
+
+@keyframes drop {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  51% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
