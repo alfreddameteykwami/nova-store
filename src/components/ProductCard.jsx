@@ -18,7 +18,7 @@ export default function ProductCard({ p, i, wished, onWish, onAdd, onOpen }) {
         delay: (i % 4) * 0.08,
         ease: [0.2, 0.7, 0.2, 1],
       }}
-      className="group"
+      className="group flex flex-col"
     >
       <div className="relative">
         <button
@@ -26,7 +26,7 @@ export default function ProductCard({ p, i, wished, onWish, onAdd, onOpen }) {
           aria-label={`View ${p.name}`}
           className="block w-full text-left"
         >
-          <Tile p={p} className="aspect-4/5 rounded-3xl" />
+          <Tile p={p} className="aspect-4/5 rounded-2xl sm:rounded-3xl" />
         </button>
         <span className="glass absolute left-3 top-3 rounded-full px-3 py-1 text-xs">
           {p.category}
@@ -43,14 +43,14 @@ export default function ProductCard({ p, i, wished, onWish, onAdd, onOpen }) {
           />
         </button>
       </div>
-      <div className="mt-4 flex items-start justify-between gap-3">
-        <div>
-          <h3 className="font-display text-xl font-medium tracking-tight">
+      <div className="mt-4 flex flex-1 items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h3 className="font-display text-lg font-medium tracking-tight sm:text-xl">
             {p.name}
           </h3>
           <p className="mt-1 max-w-[26ch] text-sm text-mute">{p.short}</p>
         </div>
-        <span className="font-display text-lg">${p.price}</span>
+        <span className="shrink-0 font-display text-lg">${p.price}</span>
       </div>
       <button
         onClick={() => onAdd(p.id)}

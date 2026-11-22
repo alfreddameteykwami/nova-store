@@ -17,7 +17,7 @@ function ScrollProgress() {
   return (
     <motion.div
       style={{ scaleX: s }}
-      className="fixed inset-x-0 top-0 z-60 h-2px origin-left bg-cobalt"
+      className="fixed inset-x-0 top-0 z-60 h-[2px] origin-left bg-cobalt"
     />
   );
 }
@@ -119,7 +119,7 @@ export default function App() {
               initial={{ opacity: 0, letterSpacing: "0.3em" }}
               animate={{ opacity: 1, letterSpacing: "0.02em" }}
               transition={{ duration: 1 }}
-              className="font-display text-6xl font-light"
+              className="font-display text-5xl font-light sm:text-6xl"
             >
               NØVA
             </motion.span>

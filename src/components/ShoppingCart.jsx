@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { Tile } from "./ProductCard";
@@ -14,6 +14,13 @@ export default function ShoppingCart({
   const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
   const shipping = subtotal === 0 || subtotal >= 150 ? 0 : 9;
   const total = subtotal + shipping;
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
 
   return (
     <AnimatePresence>
@@ -31,15 +38,16 @@ export default function ShoppingCart({
         <motion.aside
           key="d"
           role="dialog"
+          aria-modal="true"
           aria-label="Shopping bag"
-          className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-paper p-6"
+          className="fixed right-0 top-0 z-50 flex h-[100dvh] w-full max-w-md flex-col bg-paper p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6"
           initial={{ x: "100%" }}
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ duration: 0.45, ease: [0.2, 0.7, 0.2, 1] }}
         >
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-3xl font-light tracking-tight">
+            <h2 className="font-display text-2xl font-light tracking-tight sm:text-3xl">
               Your bag
             </h2>
             <button
@@ -76,18 +84,21 @@ export default function ShoppingCart({
             </div>
           ) : (
             <>
-              <ul className="mt-6 flex-1 divide-y divide-ink/10 overflow-auto">
+              <ul className="mt-4 flex-1 divide-y divide-ink/10 overflow-y-auto sm:mt-6">
                 {items.map((i) => (
-                  <li key={i.id} className="flex gap-4 py-4">
-                    <Tile p={i} className="h-20 w-20 shrink-0 rounded-2xl" />
-                    <div className="flex flex-1 flex-col">
+                  <li key={i.id} className="flex gap-3 py-4 sm:gap-4">
+                    <Tile
+                      p={i}
+                      className="h-18 w-18 shrink-0 rounded-2xl sm:h-20 sm:w-20"
+                    />
+                    <div className="flex min-w-0 flex-1 flex-col">
                       <div className="flex justify-between gap-2">
-                        <span className="font-medium">{i.name}</span>
-                        <span>${i.price * i.qty}</span>
+                        <span className="truncate font-medium">{i.name}</span>
+                        <span className="shrink-0">${i.price * i.qty}</span>
                       </div>
                       <span className="text-sm text-mute">${i.price} each</span>
-                      <div className="mt-auto flex items-center justify-between">
-                        <div className="flex items-center gap-3 rounded-full border border-ink/20 px-1">
+                      <div className="mt-2.5 flex items-center justify-between">
+                        <div className="flex items-center gap-2 rounded-full border border-ink/20 px-1 sm:gap-3">
                           <button
                             aria-label="Decrease quantity"
                             onClick={() => onQty(i.id, -1)}
@@ -112,7 +123,7 @@ export default function ShoppingCart({
                         <button
                           aria-label={`Remove ${i.name}`}
                           onClick={() => onRemove(i.id)}
-                          className="text-mute transition hover:text-ink"
+                          className="p-1.5 text-mute transition hover:text-ink"
                         >
                           <Trash2 size={17} />
                         </button>
@@ -121,16 +132,16 @@ export default function ShoppingCart({
                   </li>
                 ))}
               </ul>
-              <div className="space-y-2 border-t border-ink/10 pt-5">
-                <div className="flex justify-between text-mute">
+              <div className="space-y-2 border-t border-ink/10 pt-4 sm:pt-5">
+                <div className="flex justify-between text-sm text-mute sm:text-base">
                   <span>Subtotal</span>
                   <span>${subtotal}</span>
                 </div>
-                <div className="flex justify-between text-mute">
+                <div className="flex justify-between text-sm text-mute sm:text-base">
                   <span>Shipping (free over $150)</span>
                   <span>{shipping ? `$${shipping}` : "Free"}</span>
                 </div>
-                <div className="flex justify-between pt-2 font-display text-2xl">
+                <div className="flex justify-between pt-2 font-display text-xl sm:text-2xl">
                   <span>Total</span>
                   <span>${total}</span>
                 </div>

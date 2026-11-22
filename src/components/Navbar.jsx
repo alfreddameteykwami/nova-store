@@ -14,7 +14,7 @@ function IconBtn({ label, onClick, count, children }) {
     <button
       aria-label={label}
       onClick={onClick}
-      className="relative grid h-10 w-10 place-items-center rounded-full transition hover:bg-ink/10"
+      className="relative grid h-9 w-9 place-items-center rounded-full transition hover:bg-ink/10 sm:h-10 sm:w-10"
     >
       {children}
       {count > 0 && (
@@ -49,18 +49,25 @@ export default function Navbar({
     return () => window.removeEventListener("scroll", f);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${scrolled || open ? "glass" : "border border-transparent"}`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 md:px-10">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6 sm:py-3 lg:px-10">
         <a
           href="#top"
-          className="font-display text-2xl font-medium tracking-tight"
+          className="shrink-0 font-display text-xl font-medium tracking-tight sm:text-2xl"
         >
           NØVA
         </a>
-        <nav className="hidden gap-9 md:flex" aria-label="Main">
+        <nav className="hidden gap-6 md:flex lg:gap-9" aria-label="Main">
           {links.map(([l, h]) => (
             <a
               key={l}
@@ -71,9 +78,9 @@ export default function Navbar({
             </a>
           ))}
         </nav>
-        <div className="flex items-center">
+        <div className="flex items-center gap-0.5 sm:gap-1">
           <IconBtn label="Search" onClick={onSearch}>
-            <Search size={20} />
+            <Search size={19} />
           </IconBtn>
           <IconBtn
             label={
@@ -83,21 +90,21 @@ export default function Navbar({
             }
             onClick={onTheme}
           >
-            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            {theme === "dark" ? <Sun size={19} /> : <Moon size={19} />}
           </IconBtn>
           <IconBtn label="Wishlist" onClick={onWish} count={wishCount}>
-            <Heart size={20} />
+            <Heart size={19} />
           </IconBtn>
           <IconBtn label="Open bag" onClick={onCart} count={cartCount}>
-            <ShoppingBag size={20} />
+            <ShoppingBag size={19} />
           </IconBtn>
           <button
-            className="grid h-10 w-10 place-items-center md:hidden"
+            className="grid h-9 w-9 place-items-center rounded-full transition hover:bg-ink/10 md:hidden"
             aria-label="Menu"
             aria-expanded={open}
             onClick={() => setOpen(!open)}
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {open ? <X size={21} /> : <Menu size={21} />}
           </button>
         </div>
       </div>
@@ -107,16 +114,16 @@ export default function Navbar({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden md:hidden"
+            className="max-h-[calc(100svh-3.75rem)] overflow-y-auto md:hidden"
             aria-label="Mobile"
           >
-            <div className="flex flex-col px-5 pb-5">
+            <div className="flex flex-col px-4 pb-5 sm:px-6">
               {links.map(([l, h]) => (
                 <a
                   key={l}
                   href={h}
                   onClick={() => setOpen(false)}
-                  className="border-t border-ink/10 py-3 font-display text-2xl font-light"
+                  className="border-t border-ink/10 py-3 font-display text-xl font-light sm:text-2xl"
                 >
                   {l}
                 </a>

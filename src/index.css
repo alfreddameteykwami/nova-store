@@ -43,7 +43,7 @@
     background: var(--fog);
     color: var(--ink);
     font-family: var(--font-sans);
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     transition:
